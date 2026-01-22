@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Application/Application.csproj" Id="d9845415-e587-49a9-b9ec-8845d090ed88" />
+  <Project Path="Infrastructure/Infrastructure.csproj" Id="c0b9575a-b575-4255-897f-f7e10f89a23c" />
+  <Project Path="Presentation/Presentation.csproj" Id="0e5e5b07-e749-4137-a560-c1da8a8f600d" />
+  <Project Path="SignalChat-Client/SignalChat-Client.csproj" />
+</Solution>
