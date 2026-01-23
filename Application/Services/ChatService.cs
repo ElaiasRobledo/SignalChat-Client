@@ -18,7 +18,7 @@ namespace Application.Services
 
         private void HandleIncomingMessage(string user, string message)
         { 
-            AnsiConsole.MarkupLine($"[green]{user}:[/] message");
+            AnsiConsole.MarkupLine($"[bold green]{user}[/]: {Markup.Escape(message)}");
         }
         public Task ConnectAsync(string token)
             => _chatClient.ConnectAsync(token);

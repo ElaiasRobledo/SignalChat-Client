@@ -11,6 +11,7 @@ namespace Presentation.Views.Utils
         //Friends related
         FriendsMenu,
         YourFriends,
+        FriendsChat,
 
         //Optionals
         Exit

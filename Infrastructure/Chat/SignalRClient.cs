@@ -10,6 +10,11 @@ namespace Infrastructure.Chat
     {
         private HubConnection _connection;
 
+        public SignalRClient()
+        {
+
+        }
+
         //READ ABOUT EVENTS AND PRIORITIZE THE OOP.
         public event Action<string, string> OnReceiveMessage;
 
@@ -35,6 +40,6 @@ namespace Infrastructure.Chat
 
         }
         public Task SendToUserAsync(string username, string msg)
-            => _connection.InvokeAsync("SendMsgToSpecificUser", username, msg);
+            => _connection.InvokeAsync("SendMessageToSpecificClient", username, msg);
     }
 }

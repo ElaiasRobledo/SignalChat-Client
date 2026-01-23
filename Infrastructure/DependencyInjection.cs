@@ -8,6 +8,7 @@ using Application.Interfaces.Auth;
 using Infrastructure.Auth;
 using Application.Interfaces.Chat;
 using Infrastructure.Chat;
+using Application.Services;
 
 namespace Infrastructure
 {
@@ -18,7 +19,8 @@ namespace Infrastructure
         {
             services.AddHttpClient<IContacts, ContactsService>();
             services.AddHttpClient<IAuth, AuthClientService>();
-            services.AddHttpClient<ISignalRClient, SignalRClient>();
+            services.AddScoped<ISignalRClient, SignalRClient>();
+            services.AddScoped<ChatService>();
             return services;
         }
     }

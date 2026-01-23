@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces.Auth;
+using Application.Interfaces.Chat;
 using Application.Interfaces.Contacts;
+using Application.Services;
 using Presentation.Views.Menus;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,16 @@ namespace SignalChat_Client
         private readonly IContacts _contacts;
         private readonly IAuth _auth;
         private readonly HttpClient _httpClient;
-        public App(IContacts contacts, HttpClient httpClient, IAuth auth)
+        private readonly ISignalRClient _signalRClient;
+        private readonly ChatService _chatService;
+        public App(IContacts contacts, HttpClient httpClient, 
+            IAuth auth, ISignalRClient signalRClient, ChatService chatService)
         {
             _contacts = contacts;
             _auth = auth;
             _httpClient = httpClient;
+            _chatService = chatService;
+            _signalRClient = signalRClient;
         }
 
         public async Task RunAsync()
@@ -28,11 +35,11 @@ namespace SignalChat_Client
                 LoginScreen.ShowStatus();
 
                 var token = await _auth.LoginAsync(username, password);
-
+                await _signalRClient.ConnectAsync(token);
                 LoginScreen.ShowFooter();
                 Thread.Sleep(1000);
 
-                var router = new Router(token, _contacts);
+                var router = new Router(token, _contacts, _chatService);
                 await router.RunAsync();
             }
         }
