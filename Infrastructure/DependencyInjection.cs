@@ -9,6 +9,7 @@ using Infrastructure.Auth;
 using Application.Interfaces.Chat;
 using Infrastructure.Chat;
 using Application.Services;
+using Application.Utils;
 
 namespace Infrastructure
 {
@@ -21,6 +22,7 @@ namespace Infrastructure
             services.AddHttpClient<IAuth, AuthClientService>();
             services.AddScoped<ISignalRClient, SignalRClient>();
             services.AddScoped<ChatService>();
+            services.AddSingleton<ChatBuffer>();
             return services;
         }
     }
