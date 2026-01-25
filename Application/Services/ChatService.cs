@@ -1,6 +1,6 @@
 ﻿
+using Application.Events;
 using Application.Interfaces.Chat;
-using Application.Utils;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -11,17 +11,19 @@ namespace Application.Services
     public class ChatService
     {
         private readonly ISignalRClient _chatClient;
-        private readonly ChatBuffer _chatBuffer;
-        public ChatService(ISignalRClient chatClient, ChatBuffer chatBuffer)
+        private readonly UIEventQueue _eventQueue;
+        public ChatService(ISignalRClient chatClient, UIEventQueue events)
         {
             _chatClient = chatClient;
-            _chatBuffer = chatBuffer;
+            _eventQueue = events;
             _chatClient.OnReceiveMessage += HandleIncomingMessage; //ENTENDER COMO FUNCIONA ESTO
         }
 
         private void HandleIncomingMessage(string user, string message)
         {
-            _chatBuffer.Add(user, message);        
+            _eventQueue.Enqueue(
+                new IncomingChatMessage(user, message));
+
         }
         public Task ConnectAsync(string token)
             => _chatClient.ConnectAsync(token);
