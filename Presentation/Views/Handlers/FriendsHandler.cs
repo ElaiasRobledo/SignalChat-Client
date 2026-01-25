@@ -29,17 +29,27 @@ namespace Presentation.Views.Handlers
                 Console.ReadKey(true);
                 return Screens.FriendsMenu;
             }
-
+            const string BackOption = "Back to Friend's Menu";
             var selectedUsername = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("[green]Selecciona un amigo[/]")
                 .HighlightStyle(new Style(Color.Green1))
                 .PageSize(10)
                 .AddChoices(result.Select(f => f.username))
-                );
+                .AddChoices(BackOption)
+                .UseConverter(choice =>
+                choice == BackOption
+                 ? "[bold red]Back to Friend's Menu[/]"
+                : choice
+                ));
+
+            if (selectedUsername == BackOption)
+                return Screens.FriendsMenu;
+
 
             var selectedFriend = result.First(f => f.username == selectedUsername);
-            context.SelectedFriend = selectedFriend.userId;
+            context.SelectedFriend = selectedFriend.username;
+            context.FriendId = selectedFriend.userId;
 
             return Screens.FriendsChat;
         }
