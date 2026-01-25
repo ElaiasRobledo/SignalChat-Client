@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Auth;
+﻿using Application.Events;
+using Application.Interfaces.Auth;
 using Application.Interfaces.Chat;
 using Application.Interfaces.Contacts;
 using Application.Services;
@@ -17,13 +18,16 @@ namespace SignalChat_Client
         private readonly HttpClient _httpClient;
         private readonly ISignalRClient _signalRClient;
         private readonly ChatService _chatService;
+        private readonly UIEventQueue _eventQueue;
         public App(IContacts contacts, HttpClient httpClient, 
-            IAuth auth, ISignalRClient signalRClient, ChatService chatService)
+            IAuth auth, ISignalRClient signalRClient, 
+            ChatService chatService, UIEventQueue eventQueue)
         {
             _contacts = contacts;
             _auth = auth;
             _httpClient = httpClient;
             _chatService = chatService;
+            _eventQueue = eventQueue;
             _signalRClient = signalRClient;
         }
 
@@ -39,7 +43,7 @@ namespace SignalChat_Client
                 LoginScreen.ShowFooter();
                 Thread.Sleep(1000);
 
-                var router = new Router(token, _contacts, _chatService);
+                var router = new Router(token, _contacts, _chatService, _eventQueue);
                 await router.RunAsync();
             }
         }
