@@ -21,6 +21,7 @@ namespace SignalChat_Client
         private readonly UiDispatcher _dispatcher;
         private readonly IContacts _contacts;
         private readonly ChatService _chatService;
+        private readonly UIEventQueue _uiEventQueue;
 
         public Router(string token, IContacts contacts,
             ChatService chatService, UIEventQueue eventQueue)
@@ -29,7 +30,8 @@ namespace SignalChat_Client
             _contacts = contacts;
             _chatService = chatService;
             _uiState = new UiState();
-            _dispatcher = new UiDispatcher(eventQueue, _uiState);
+            _uiEventQueue = eventQueue;
+            _dispatcher = new UiDispatcher(_uiEventQueue, _uiState);
         }
 
         public async Task RunAsync()
@@ -40,7 +42,7 @@ namespace SignalChat_Client
 
                 _current = _current switch
                 {
-                    Screens.MainMenu => await MainMenu.Show(),
+                    Screens.MainMenu => await MainMenu.Show(_uiEventQueue),
                     Screens.FriendsMenu => await FriendsMenu.Show(),
                     Screens.YourFriends => await FriendsHandler.ShowFriendsAsync(_token, _contacts, _context),
                     Screens.FriendsChat => await FriendsChatView.ShowAsync(_context, _chatService, _dispatcher, _uiState),

@@ -26,7 +26,7 @@ namespace Presentation.Views.Utils.UIs
                     HandleChat(msg);
             }
         }
-
+       
         private void HandleChat(IncomingChatMessage msg)
         {
             if (!_state.ChatHistory.TryGetValue(msg.FromUser, out var history))

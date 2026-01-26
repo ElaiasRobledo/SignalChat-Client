@@ -1,4 +1,5 @@
-﻿using Presentation.Views.Decorations;
+﻿using Application.Events;
+using Presentation.Views.Decorations;
 using Presentation.Views.Utils;
 using Spectre.Console;
 using System;
@@ -9,8 +10,9 @@ namespace Presentation.Views.Menus
 {
     public static class MainMenu
     {
-        public static Task<Screens> Show()
+        public static Task<Screens> Show(UIEventQueue eventQueue)
         {
+            var incomingMessages = eventQueue.CountIncomingMessages();
             AnsiConsole.Clear();
             Banner.Show();
             var option = AnsiConsole.Prompt(
@@ -19,7 +21,7 @@ namespace Presentation.Views.Menus
                     .AddChoices(
                         "Friends",
                         "Groups",
-                        "Messages",
+                        $"Messages [bold SpringGreen1]({incomingMessages})[/]",
                         "Settings",
                         "Exit"));
 

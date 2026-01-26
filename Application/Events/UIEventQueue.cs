@@ -11,6 +11,8 @@ namespace Application.Events
 
         public void Enqueue(UiEvent ev) => _queue.Enqueue(ev);
 
+        public int CountIncomingMessages() => _queue.Count;   
+
         public bool TryDequeue(out UiEvent ev)
             => _queue.TryDequeue(out ev);
     }

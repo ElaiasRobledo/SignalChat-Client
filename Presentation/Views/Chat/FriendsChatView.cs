@@ -33,7 +33,6 @@ namespace Presentation.Views.Chat
                     AnsiConsole.WriteLine(line);
             }
 
-            dispatcher.ProcessEvets();
 
             while (true)
             {
