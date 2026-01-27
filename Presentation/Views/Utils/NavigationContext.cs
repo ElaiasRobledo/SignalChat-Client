@@ -6,8 +6,8 @@ namespace Presentation.Views.Utils
 {
     public class NavigationContext
     {
-        public string? SelectedFriend { get; set; }
-        public string FriendId { get; set; }
+        public string? Username { get; set; }
+        public string UserId { get; set; }
         public Screens CurrentScreen { get; set; }
     }
 }
