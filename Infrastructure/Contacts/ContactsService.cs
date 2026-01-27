@@ -18,9 +18,35 @@ namespace Infrastructure.Contacts
             _httpClient.DefaultRequestHeaders.Authorization
                 = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _httpClient.GetAsync("https://localhost:7139/api/contacts/approved");
+            var response = await _httpClient.GetAsync("approved");
             return response;
 
+        }
+
+        public async Task<HttpResponseMessage> GetPendingContactsAsync(string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+                = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.GetAsync("pending");
+            return response;
+
+        }
+        public async Task<HttpResponseMessage> ApproveContactsAsync(string token, string userId)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+               = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.PutAsync($"approve/{userId}",null);
+            return response;
+        }
+        public async Task<HttpResponseMessage> RejectContactsAsync(string token, string userId)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+               = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.PutAsync($"reject/{userId}", null);
+            return response;
         }
     }
 }
