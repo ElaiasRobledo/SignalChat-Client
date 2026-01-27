@@ -24,9 +24,8 @@ namespace Infrastructure.Auth
                Encoding.UTF8,
                 "application/json");
 
-            //DESPUES INVOCAMOS LA URL DESDE APPSETTING U OTRO ARCHIVO.
             var response = await _http.PostAsync
-                ("https://localhost:7139/api/auth/login", content);
+                ("login", content);
 
             var token = (await response.Content.ReadAsStringAsync()).Trim();
 

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Presentation.Views.Chat
 {
-    public static class FriendsChatView
+    public static class ContactsChatView
     {
         public static async Task<Screens> ShowAsync(
             NavigationContext context,
@@ -18,10 +18,10 @@ namespace Presentation.Views.Chat
             )
         {
             state.CurrentScreen = Screens.FriendsChat;
-            state.ActiveChatUser = context.SelectedFriend;
+            state.ActiveChatUser = context.Username;
 
-            var friend = context.SelectedFriend;
-            var friendId = context.FriendId;
+            var friend = context.Username;
+            var friendId = context.UserId;
 
             AnsiConsole.Clear();
             AnsiConsole.MarkupLine($"[green]Chat with {friend}[/]");

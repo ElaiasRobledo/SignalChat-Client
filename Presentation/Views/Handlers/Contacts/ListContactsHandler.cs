@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
-namespace Presentation.Views.Handlers
+namespace Presentation.Views.Handlers.Friends
 {
-    public static class FriendsHandler
+    public static class ListContactsHandler
     {
-        public static async Task<Screens> ShowFriendsAsync(
+        public static async Task<Screens> ShowContactsAsync(
             string token, IContacts contacts, NavigationContext context)
         {
             AnsiConsole.Clear();
-            AnsiConsole.MarkupLine("[green]Your friends:[/]");
+            AnsiConsole.MarkupLine("[green1]Your friends:[/]");
 
             var response = await contacts.GetContactsAsync(token);
             var content = await response.Content.ReadAsStringAsync();
@@ -32,7 +32,6 @@ namespace Presentation.Views.Handlers
             const string BackOption = "Back to Friend's Menu";
             var selectedUsername = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
-                .Title("[green]Selecciona un amigo[/]")
                 .HighlightStyle(new Style(Color.Green1))
                 .PageSize(10)
                 .AddChoices(result.Select(f => f.username))
@@ -48,8 +47,8 @@ namespace Presentation.Views.Handlers
 
 
             var selectedFriend = result.First(f => f.username == selectedUsername);
-            context.SelectedFriend = selectedFriend.username;
-            context.FriendId = selectedFriend.userId;
+            context.Username = selectedFriend.username;
+            context.UserId = selectedFriend.userId;
 
             return Screens.FriendsChat;
         }

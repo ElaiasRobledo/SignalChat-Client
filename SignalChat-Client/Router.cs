@@ -2,7 +2,8 @@
 using Application.Interfaces.Contacts;
 using Application.Services;
 using Presentation.Views.Chat;
-using Presentation.Views.Handlers;
+using Presentation.Views.Handlers.Contacts;
+using Presentation.Views.Handlers.Friends;
 using Presentation.Views.Menus;
 using Presentation.Views.Utils;
 using Presentation.Views.Utils.UIs;
@@ -43,9 +44,11 @@ namespace SignalChat_Client
                 _current = _current switch
                 {
                     Screens.MainMenu => await MainMenu.Show(_uiEventQueue),
-                    Screens.FriendsMenu => await FriendsMenu.Show(),
-                    Screens.YourFriends => await FriendsHandler.ShowFriendsAsync(_token, _contacts, _context),
-                    Screens.FriendsChat => await FriendsChatView.ShowAsync(_context, _chatService, _dispatcher, _uiState),
+                    Screens.FriendsMenu => await ContactsMenu.Show(),
+                    Screens.YourFriends => await ListContactsHandler.ShowContactsAsync(_token, _contacts, _context),
+                    Screens.PendingRequests => await ListPendingFriendsHandler.ShowPendingContacts(_token, _contacts, _context),
+                    Screens.ApprovePendingRequests => await ApprovePendingRequestsHandler.ApproveOrRejectRequest(_token, _contacts, _context),
+                    Screens.FriendsChat => await ContactsChatView.ShowAsync(_context, _chatService, _dispatcher, _uiState),
                     _ => Screens.Exit
                 };
             }

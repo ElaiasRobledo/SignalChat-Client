@@ -4,6 +4,7 @@ using Application.Interfaces.Chat;
 using Application.Interfaces.Contacts;
 using Application.Services;
 using Presentation.Views.Menus;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -39,6 +40,7 @@ namespace SignalChat_Client
                 LoginScreen.ShowStatus();
 
                 var token = await _auth.LoginAsync(username, password);
+              
                 await _signalRClient.ConnectAsync(token);
                 LoginScreen.ShowFooter();
                 Thread.Sleep(1000);

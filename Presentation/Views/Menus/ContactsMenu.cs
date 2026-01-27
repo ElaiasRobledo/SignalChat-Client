@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Presentation.Views.Menus
 {
-    public static class FriendsMenu
+    public static class ContactsMenu
     {
         public static Task<Screens> Show()
         {
@@ -31,6 +31,7 @@ namespace Presentation.Views.Menus
                 option switch
                 {
                     "Your friends" => Screens.YourFriends,
+                    "Pending requests (n)" => Screens.PendingRequests, //Redirigir a otra screen para aceptar o rechazar
                     "Back to menu" => Screens.MainMenu,
                     _ => Screens.FriendsMenu
                 });

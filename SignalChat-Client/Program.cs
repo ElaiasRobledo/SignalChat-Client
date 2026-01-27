@@ -4,17 +4,9 @@ using Infrastructure;
 using Infrastructure.Auth;
 using Infrastructure.Chat;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Presentation.Views;
-using Spectre.Console;
-using Spectre.Console.Rendering;
 
-using System.ComponentModel.DataAnnotations;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SignalChat_Client
 {
@@ -22,10 +14,17 @@ namespace SignalChat_Client
     {
         static async Task Main(string[] args)
         {
-           var services = new ServiceCollection();
+
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
+            var services = new ServiceCollection();
+            services.AddSingleton<IConfiguration>(configuration);
 
             services.AddApplication();
-            services.AddInfrastructure();
+            services.AddInfrastructure(configuration);
             services.AddScoped<App>();
           
             var provider = services.BuildServiceProvider();

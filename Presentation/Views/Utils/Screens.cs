@@ -12,6 +12,8 @@ namespace Presentation.Views.Utils
         FriendsMenu,
         YourFriends,
         FriendsChat,
+        PendingRequests,
+        ApprovePendingRequests,
 
         //Optionals
         Exit
