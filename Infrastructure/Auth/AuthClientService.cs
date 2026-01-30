@@ -11,14 +11,14 @@ namespace Infrastructure.Auth
         private readonly HttpClient _http;
 
         public AuthClientService(HttpClient http)
-            { _http = http; }
+        { _http = http; }
 
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<HttpResponseMessage> LoginAsync(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 throw new ArgumentNullException("Data is required");
 
-            var payload = new {username, password};
+            var payload = new { username, password };
 
             var content = new StringContent(JsonSerializer.Serialize(payload),
                Encoding.UTF8,
@@ -27,12 +27,12 @@ namespace Infrastructure.Auth
             var response = await _http.PostAsync
                 ("login", content);
 
-            var token = (await response.Content.ReadAsStringAsync()).Trim();
+            var token = await response.Content.ReadAsStringAsync();
 
             _http.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            return token;
+            return response;
         }
     }
 }
