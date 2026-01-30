@@ -13,6 +13,8 @@ using Application.Events;
 using Infrastructure.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Application.Interfaces.Users;
+using Infrastructure.Users;
 
 namespace Infrastructure
 {
@@ -28,7 +30,12 @@ namespace Infrastructure
                 var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
                 client.BaseAddress = new Uri(options.BaseUrl + "contacts/");
             });
-
+            services.AddHttpClient<IUsersService, UsersService>((sp, client)
+               =>
+            {
+                var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl);
+            });
             services.AddHttpClient<IAuth, AuthClientService>((sp, client) =>
             {
                 var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;

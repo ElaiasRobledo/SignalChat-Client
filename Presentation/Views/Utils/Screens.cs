@@ -14,6 +14,8 @@ namespace Presentation.Views.Utils
         FriendsChat,
         PendingRequests,
         ApprovePendingRequests,
+        SearchFriends,
+        SendFriendRequest,
 
         //Optionals
         Exit

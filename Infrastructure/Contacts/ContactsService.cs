@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Contacts;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace Infrastructure.Contacts
@@ -31,6 +32,16 @@ namespace Infrastructure.Contacts
             var response = await _httpClient.GetAsync("pending");
             return response;
 
+        }
+        public async Task<HttpResponseMessage> SendContactRequestAsync(string token, string Username)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+               = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var request = new { Username };
+
+            var response = await _httpClient.PostAsJsonAsync(string.Empty, request);
+            return response;
         }
         public async Task<HttpResponseMessage> ApproveContactsAsync(string token, string userId)
         {

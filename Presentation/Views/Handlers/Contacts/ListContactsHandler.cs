@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces.Contacts;
+using Presentation.Views.Decorations;
 using Presentation.Views.Utils;
 using Spectre.Console;
 using System;
@@ -15,6 +16,8 @@ namespace Presentation.Views.Handlers.Friends
             string token, IContacts contacts, NavigationContext context)
         {
             AnsiConsole.Clear();
+            Banner.Show();
+
             AnsiConsole.MarkupLine("[green1]Your friends:[/]");
 
             var response = await contacts.GetContactsAsync(token);

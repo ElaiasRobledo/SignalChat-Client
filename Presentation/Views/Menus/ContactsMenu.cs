@@ -23,7 +23,7 @@ namespace Presentation.Views.Menus
                         "Your friends",
                         "Delete a friend",
                         "Search new friends",
-                        "Pending requests (n)",
+                        "Pending requests (n)", 
                         "Back to menu"));
 
             return Task.FromResult(
@@ -32,6 +32,7 @@ namespace Presentation.Views.Menus
                 {
                     "Your friends" => Screens.YourFriends,
                     "Pending requests (n)" => Screens.PendingRequests, //Redirigir a otra screen para aceptar o rechazar
+                    "Search new friends" => Screens.SearchFriends,
                     "Back to menu" => Screens.MainMenu,
                     _ => Screens.FriendsMenu
                 });

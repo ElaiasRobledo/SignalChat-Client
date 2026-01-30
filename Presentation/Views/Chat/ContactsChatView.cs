@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Presentation.Views.Decorations;
 using Presentation.Views.Utils;
 using Presentation.Views.Utils.UIs;
 using Spectre.Console;
@@ -24,6 +25,8 @@ namespace Presentation.Views.Chat
             var friendId = context.UserId;
 
             AnsiConsole.Clear();
+            Banner.Show();
+
             AnsiConsole.MarkupLine($"[green]Chat with {friend}[/]");
             AnsiConsole.MarkupLine("[grey]Type /exit to return[/]");
 
