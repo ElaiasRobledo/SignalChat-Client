@@ -11,5 +11,6 @@ namespace Application.Interfaces.Contacts
         Task<HttpResponseMessage> ApproveContactsAsync(string token, string userId);
         Task<HttpResponseMessage> RejectContactsAsync(string token, string userId);
         Task<HttpResponseMessage> SendContactRequestAsync(string token, string Username);
+        Task DeleteAsync(string token, string contactId);
     }
 }

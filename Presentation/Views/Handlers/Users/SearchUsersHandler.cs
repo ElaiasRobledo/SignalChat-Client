@@ -25,8 +25,10 @@ namespace Presentation.Views.Handlers.Users
             Helpers helpers = new();
             helpers.DrawHeader();
 
+            AnsiConsole.Markup("[grey]Type /exit to return[/]");
+            AnsiConsole.WriteLine();
             AnsiConsole.Markup("[green1]Search your new friend: [/]");
-          
+
             var username = ReadUsername();
             if (string.IsNullOrWhiteSpace(username))
                 return Retry("Please enter a value");

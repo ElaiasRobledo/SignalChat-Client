@@ -55,6 +55,8 @@ namespace SignalChat_Client
                     Screens.SendFriendRequest => await SendFriendRequestHandler.Show(_token, _contacts, _context),
                     Screens.ApprovePendingRequests => await ApprovePendingRequestsHandler.ApproveOrRejectRequest(_token, _contacts, _context),
                     Screens.FriendsChat => await ContactsChatView.ShowAsync(_context, _chatService, _dispatcher, _uiState),
+                    Screens.DeleteFriend => await DeleteContactHandler.Delete(_token, _contacts, _context),
+
                     _ => Screens.Exit
                 };
             }

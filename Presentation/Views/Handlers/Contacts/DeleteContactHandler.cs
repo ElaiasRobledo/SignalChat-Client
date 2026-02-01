@@ -9,17 +9,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
-namespace Presentation.Views.Handlers.Friends
+namespace Presentation.Views.Handlers.Contacts
 {
-    public static class ListContactsHandler
+    public static class DeleteContactHandler
     {
-        public static async Task<Screens> ShowContactsAsync(
-        string token,
-        IContacts contacts,
-        NavigationContext context)
+        public static async Task<Screens> Delete(
+            string token,
+            IContacts contacts,
+            NavigationContext context)
         {
             AnsiConsole.Clear();
             Banner.Show();
+
+            AnsiConsole.MarkupLine("[red]Delete a friend[/]");
+
 
             var response = await contacts.GetContactsAsync(token);
             var content = await response.Content.ReadAsStringAsync();
@@ -50,13 +53,21 @@ namespace Presentation.Views.Handlers.Friends
             if (selectedUsername == BackOption)
                 return Screens.FriendsMenu;
 
-
             var selectedFriend = friends.First(f => f.username == selectedUsername);
             context.Username = selectedFriend.username;
             context.UserId = selectedFriend.userId;
+            var confirm = AnsiConsole.Confirm(
+                $"Are you sure you want to delete [red]{selectedFriend.username}[/]?");
 
-            return Screens.FriendsChat;
+            if (!confirm)
+                return Screens.FriendsMenu;
 
+            await contacts.DeleteAsync(token, selectedFriend.userId.ToString());
+
+            AnsiConsole.MarkupLine("[green]Friend deleted successfully.[/]");
+            Thread.Sleep(1000);
+
+            return Screens.FriendsMenu;
         }
     }
 }

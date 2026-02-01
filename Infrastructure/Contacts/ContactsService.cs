@@ -51,6 +51,12 @@ namespace Infrastructure.Contacts
             var response = await _httpClient.PutAsync($"approve/{userId}",null);
             return response;
         }
+        public async Task DeleteAsync(string token, string contactId)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+                = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            await _httpClient.DeleteAsync($"{contactId}");
+        }
         public async Task<HttpResponseMessage> RejectContactsAsync(string token, string userId)
         {
             _httpClient.DefaultRequestHeaders.Authorization

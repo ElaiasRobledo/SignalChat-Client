@@ -31,8 +31,9 @@ namespace Presentation.Views.Menus
                 option switch
                 {
                     "Your friends" => Screens.YourFriends,
-                    "Pending requests (n)" => Screens.PendingRequests, //Redirigir a otra screen para aceptar o rechazar
+                    "Pending requests (n)" => Screens.PendingRequests,
                     "Search new friends" => Screens.SearchFriends,
+                    "Delete a friend" => Screens.DeleteFriend,
                     "Back to menu" => Screens.MainMenu,
                     _ => Screens.FriendsMenu
                 });

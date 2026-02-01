@@ -16,6 +16,8 @@ namespace Presentation.Views.Utils
         ApprovePendingRequests,
         SearchFriends,
         SendFriendRequest,
+        DeleteFriend,
+
 
         //Optionals
         Exit
