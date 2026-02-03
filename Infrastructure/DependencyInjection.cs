@@ -8,17 +8,42 @@ using Application.Interfaces.Auth;
 using Infrastructure.Auth;
 using Application.Interfaces.Chat;
 using Infrastructure.Chat;
+using Application.Services;
+using Application.Events;
+using Infrastructure.Utils;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Application.Interfaces.Users;
+using Infrastructure.Users;
 
 namespace Infrastructure
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services)
+        this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHttpClient<IContacts, ContactsService>();
-            services.AddHttpClient<IAuth, AuthClientService>();
-            services.AddHttpClient<ISignalRClient, SignalRClient>();
+            services.Configure<ApiOptions>(configuration.GetSection("Api"));
+            services.AddHttpClient<IContacts, ContactsService>((sp, client)
+                =>
+            {
+                var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl + "contacts/");
+            });
+            services.AddHttpClient<IUsersService, UsersService>((sp, client)
+               =>
+            {
+                var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl);
+            });
+            services.AddHttpClient<IAuth, AuthClientService>((sp, client) =>
+            {
+                var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl + "auth/");
+            });
+            services.AddSingleton<ISignalRClient, SignalRClient>();
+            services.AddSingleton<ChatService>();
+            
             return services;
         }
     }

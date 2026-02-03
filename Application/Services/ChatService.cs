@@ -1,4 +1,5 @@
 ﻿
+using Application.Events;
 using Application.Interfaces.Chat;
 using Spectre.Console;
 using System;
@@ -10,15 +11,19 @@ namespace Application.Services
     public class ChatService
     {
         private readonly ISignalRClient _chatClient;
-        public ChatService(ISignalRClient chatClient)
+        private readonly UIEventQueue _eventQueue;
+        public ChatService(ISignalRClient chatClient, UIEventQueue events)
         {
             _chatClient = chatClient;
+            _eventQueue = events;
             _chatClient.OnReceiveMessage += HandleIncomingMessage; //ENTENDER COMO FUNCIONA ESTO
         }
 
         private void HandleIncomingMessage(string user, string message)
-        { 
-            AnsiConsole.MarkupLine($"[green]{user}:[/] message");
+        {
+            _eventQueue.Enqueue(
+                new IncomingChatMessage(user, message));
+
         }
         public Task ConnectAsync(string token)
             => _chatClient.ConnectAsync(token);

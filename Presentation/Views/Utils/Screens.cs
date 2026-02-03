@@ -11,6 +11,13 @@ namespace Presentation.Views.Utils
         //Friends related
         FriendsMenu,
         YourFriends,
+        FriendsChat,
+        PendingRequests,
+        ApprovePendingRequests,
+        SearchFriends,
+        SendFriendRequest,
+        DeleteFriend,
+
 
         //Optionals
         Exit

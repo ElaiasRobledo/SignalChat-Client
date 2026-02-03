@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Events;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Application
         public static IServiceCollection AddApplication(
             this IServiceCollection services)
         {
+            services.AddSingleton<UIEventQueue>();
             return services;
         }
     }

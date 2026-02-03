@@ -6,6 +6,6 @@ namespace Application.Interfaces.Auth
 {
     public interface IAuth
     {
-        Task<string> LoginAsync(string username, string password);
+        Task<HttpResponseMessage> LoginAsync(string username, string password);
     }
 }
