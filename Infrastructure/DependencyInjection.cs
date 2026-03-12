@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Application.Interfaces.Users;
 using Infrastructure.Users;
+using Application.Interfaces.Channels;
+using Infrastructure.Channels;
 
 namespace Infrastructure
 {
@@ -41,6 +43,12 @@ namespace Infrastructure
                 var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
                 client.BaseAddress = new Uri(options.BaseUrl + "auth/");
             });
+            services.AddHttpClient<IChannels, ChannelsService>((sp, client) =>
+            {
+                var options = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl + "channels/");
+            });
+          
             services.AddSingleton<ISignalRClient, SignalRClient>();
             services.AddSingleton<ChatService>();
             

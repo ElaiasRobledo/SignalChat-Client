@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Events;
 using Application.Interfaces.Auth;
+using Application.Interfaces.Channels;
 using Application.Interfaces.Chat;
 using Application.Interfaces.Contacts;
 using Application.Interfaces.Users;
@@ -24,18 +25,21 @@ namespace SignalChat_Client
         private readonly HttpClient _httpClient;
         private readonly ISignalRClient _signalRClient;
         private readonly ChatService _chatService;
+        private readonly IChannels _channels;
         private readonly IUsersService _usersService;
         private readonly UIEventQueue _eventQueue;
         public App(IContacts contacts, HttpClient httpClient, 
             IAuth auth, ISignalRClient signalRClient, 
             ChatService chatService, UIEventQueue eventQueue,
-            IUsersService usersService)
+            IUsersService usersService,
+            IChannels channels)
         {
             _contacts = contacts;
             _auth = auth;
             _httpClient = httpClient;
             _chatService = chatService;
             _eventQueue = eventQueue;
+            _channels = channels;
             _usersService = usersService;
             _signalRClient = signalRClient;
         }
@@ -68,7 +72,9 @@ namespace SignalChat_Client
                 LoginScreen.ShowFooter();
                 Thread.Sleep(1000);
 
-                var router = new Router(token, _contacts, _chatService, _eventQueue, _usersService);
+                var router = new Router(token, _contacts, 
+                _chatService, _eventQueue, 
+                _usersService, _channels);
                 await router.RunAsync();
             }
         }

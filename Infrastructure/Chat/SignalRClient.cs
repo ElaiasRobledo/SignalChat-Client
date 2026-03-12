@@ -21,7 +21,7 @@ namespace Infrastructure.Chat
         public async Task ConnectAsync(string token)
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:7139/chat", 
+                .WithUrl("https://localhost:5262/chat", 
                 option =>
                 {
                     option.AccessTokenProvider = () => Task.FromResult(token);
