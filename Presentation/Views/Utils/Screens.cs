@@ -18,6 +18,12 @@ namespace Presentation.Views.Utils
         SendFriendRequest,
         DeleteFriend,
 
+        //Channels releated
+        ChannelsMenu,
+        CreateChannel,
+        YourChannels,
+        
+
 
         //Optionals
         Exit

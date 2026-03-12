@@ -20,7 +20,7 @@ namespace Presentation.Views.Menus
                     .HighlightStyle(new Style(Color.Green1))
                     .AddChoices(
                         "Friends",
-                        "Groups",
+                        "Channels",
                         $"Messages [bold SpringGreen1]({incomingMessages})[/]",
                         "Settings",
                         "Exit"));
@@ -30,6 +30,7 @@ namespace Presentation.Views.Menus
                 option switch
                 {
                     "Friends" => Screens.FriendsMenu,
+                    "Channels" => Screens.ChannelsMenu,
                     "Exit" => Screens.Exit,
                     _ => Screens.MainMenu
                 }
