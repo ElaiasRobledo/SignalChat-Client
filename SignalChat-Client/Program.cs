@@ -6,6 +6,7 @@ using Infrastructure.Chat;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.Views.Utils.UIs;
 
 
 namespace SignalChat_Client
@@ -24,6 +25,7 @@ namespace SignalChat_Client
             services.AddSingleton<IConfiguration>(configuration);
 
             services.AddApplication();
+            services.AddSingleton<UiState>();
             services.AddInfrastructure(configuration);
             services.AddScoped<App>();
           

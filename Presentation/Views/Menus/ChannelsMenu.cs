@@ -15,7 +15,8 @@ namespace Presentation.Views.Menus
                 new SelectionPrompt<string>()
                 .HighlightStyle(new Style(Color.Green1))
                 .AddChoices
-                ("Create a channel",
+                ("My channels",
+                "Create a channel",
                 "Back to menu"
                 )
             );
@@ -24,6 +25,7 @@ namespace Presentation.Views.Menus
             (
                 option switch
                 {
+                    "My channels" => Screens.MyChannels,
                     "Create a channel" => Screens.CreateChannel,
                     "Back to menu" => Screens.MainMenu,
                     _ => Screens.MainMenu,

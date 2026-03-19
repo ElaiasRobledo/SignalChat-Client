@@ -26,9 +26,19 @@ namespace Presentation.Views.Utils.UIs
                     HandleChat(msg);
             }
         }
-       
+       public void ProccesGroupsEvents()
+        {
+            while (_events.TryDequeue(out var ev))
+            {
+                if(ev is IncomingGroupChatMesages msg)
+                    HandleGroupChat(msg);
+            }
+        }
+
+        //1-1
         private void HandleChat(IncomingChatMessage msg)
         {
+
             if (!_state.ChatHistory.TryGetValue(msg.FromUser, out var history))
             {
                 history = new List<string>();
@@ -43,6 +53,31 @@ namespace Presentation.Views.Utils.UIs
             {
                 AnsiConsole.WriteLine(line);
             }
+          
+        }
+        
+        //n-n
+        private void HandleGroupChat(IncomingGroupChatMesages msg)
+        {
+                
+                var ChannelId = msg.ChannelId;
+                if(!_state.ChatHistory.TryGetValue(ChannelId, out var chatHistory))
+                {
+                    chatHistory = new List<string>();
+                    _state.ChatHistory[ChannelId] = chatHistory;
+
+                }
+                if(_state.ActiverUserId != msg.FromUserId)
+                {
+                    var msgline = $"{msg.FromUser}: {msg.Message}";        
+                    
+                    chatHistory.Add(msgline);
+                    if (_state.CurrentScreen == Screens.ChannelsChat &&
+                        _state.ActiveChannelId == ChannelId)
+                    {
+                        AnsiConsole.WriteLine(msgline);
+                    }
+                }
         }
     }
 }

@@ -10,4 +10,12 @@ namespace Application.Events
               string Message
           ) : UiEvent;
 
+    public sealed record IncomingGroupChatMesages
+    (
+        Guid FromUserId,
+        string ChannelId,
+        string FromUser,
+        string Message
+    ): UiEvent;
+
 }

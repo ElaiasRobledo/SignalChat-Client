@@ -33,6 +33,16 @@ namespace Infrastructure.Channels
         
         }
 
+        public async Task<HttpResponseMessage> GetMyChannelsAsync(string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+            = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+
+            var response = await _httpClient.GetAsync("mychannels");
+            return response;            
+        }
+        //public async Task<HttpResponseMessage> 
         
     }
 

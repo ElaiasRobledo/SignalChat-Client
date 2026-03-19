@@ -5,6 +5,7 @@ namespace Application.Interfaces.Channels
     public interface IChannels
     {
         Task<HttpResponseMessage> CreateAsync(string token, CreateChannelDto dto);
+        Task<HttpResponseMessage> GetMyChannelsAsync(string token);
 
 
     }

@@ -28,17 +28,18 @@ namespace SignalChat_Client
         private readonly IChannels _channels;
         private readonly ChatService _chatService;
         private readonly UIEventQueue _uiEventQueue;
+        private readonly string username;
 
         private readonly IUsersService _usersService;
 
         public Router(string token, IContacts contacts,
             ChatService chatService, UIEventQueue eventQueue, 
-            IUsersService usersService, IChannels channels)
+            IUsersService usersService, IChannels channels, UiState uiState)
         {
             _token = token;
             _contacts = contacts;
             _chatService = chatService;
-            _uiState = new UiState();
+            _uiState = uiState;
             _usersService = usersService;
             _uiEventQueue = eventQueue;
             _channels = channels;
@@ -66,6 +67,8 @@ namespace SignalChat_Client
                     Screens.DeleteFriend => await DeleteContactHandler.Delete(_token, _contacts, _context),
                     //Channels
                     Screens.ChannelsMenu => await ChannelsMenu.Show(),
+                    Screens.MyChannels => await MyChannelsView.ShowAsync(_token, _channels, _context),
+                    Screens.ChannelsChat => await ChannelChatView.ShowAsync(_context, _chatService,_dispatcher, _uiState),
                     Screens.CreateChannel => await CreateChannelHandler.Show(_token,_channels, _context),
                     _ => Screens.Exit
                 };

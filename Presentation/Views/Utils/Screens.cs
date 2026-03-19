@@ -10,7 +10,7 @@ namespace Presentation.Views.Utils
         
         //Friends related
         FriendsMenu,
-        YourFriends,
+        YourFriends, //MyChannels
         FriendsChat,
         PendingRequests,
         ApprovePendingRequests,
@@ -21,7 +21,8 @@ namespace Presentation.Views.Utils
         //Channels releated
         ChannelsMenu,
         CreateChannel,
-        YourChannels,
+        ChannelsChat,
+        MyChannels, //MyChannels
         
 
 

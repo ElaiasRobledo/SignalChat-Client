@@ -19,7 +19,7 @@ namespace Presentation.Views.Menus
                 new SelectionPrompt<string>()
                     .HighlightStyle(new Style(Color.Green1))
                     .AddChoices(
-                        "Friends",
+                        "Contacts",
                         "Channels",
                         $"Messages [bold SpringGreen1]({incomingMessages})[/]",
                         "Settings",
@@ -29,7 +29,7 @@ namespace Presentation.Views.Menus
                 
                 option switch
                 {
-                    "Friends" => Screens.FriendsMenu,
+                    "Contacts" => Screens.FriendsMenu,
                     "Channels" => Screens.ChannelsMenu,
                     "Exit" => Screens.Exit,
                     _ => Screens.MainMenu
