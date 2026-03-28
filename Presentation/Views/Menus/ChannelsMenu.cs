@@ -17,6 +17,7 @@ namespace Presentation.Views.Menus
                 .AddChoices
                 ("My channels",
                 "Create a channel",
+                "Search channels",
                 "Back to menu"
                 )
             );
@@ -27,6 +28,7 @@ namespace Presentation.Views.Menus
                 {
                     "My channels" => Screens.MyChannels,
                     "Create a channel" => Screens.CreateChannel,
+                    "Search channels" => Screens.SearchChannels,
                     "Back to menu" => Screens.MainMenu,
                     _ => Screens.MainMenu,
 

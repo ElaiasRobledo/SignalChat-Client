@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Application.DTOs;
 using Application.Interfaces.Channels;
@@ -42,7 +43,26 @@ namespace Infrastructure.Channels
             var response = await _httpClient.GetAsync("mychannels");
             return response;            
         }
-        //public async Task<HttpResponseMessage> 
+        public async Task<HttpResponseMessage> SearchByNameAsync(string token,string channelName)
+        {
+
+            var request = new HttpRequestMessage(
+                HttpMethod.Get,
+                $"search/name?name={Uri.EscapeDataString(channelName)}"
+            );
+            request.Headers.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
+            return await _httpClient.SendAsync(request);
+        }
+        public async Task ExitAsync(string token, Guid chnnelId )
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+            = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.DeleteAsync($"exit/{chnnelId}");
+            
+        }
         
     }
 

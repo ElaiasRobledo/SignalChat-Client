@@ -81,8 +81,10 @@ namespace SignalChat_Client
                     c.Type == "nameid"
                 );
                 var userId = Guid.Parse(userIdClaim!.Value);
-                _state.ActiverUserId = userId;
 
+                _state.ActiverUserId = userId;
+                _state.ActiveToken = token;
+                
                 await _signalRClient.ConnectAsync(token);
                 Console.WriteLine(userIdClaim!.Value);
                 LoginScreen.ShowFooter();

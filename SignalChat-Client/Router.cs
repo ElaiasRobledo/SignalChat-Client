@@ -70,6 +70,7 @@ namespace SignalChat_Client
                     Screens.MyChannels => await MyChannelsView.ShowAsync(_token, _channels, _context),
                     Screens.ChannelsChat => await ChannelChatView.ShowAsync(_context, _chatService,_dispatcher, _uiState),
                     Screens.CreateChannel => await CreateChannelHandler.Show(_token,_channels, _context),
+                    Screens.SearchChannels => await SearchChannelsHandler.ShowChannelSearch(_token, _channels,_context),
                     _ => Screens.Exit
                 };
             }

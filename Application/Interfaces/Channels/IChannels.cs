@@ -6,6 +6,8 @@ namespace Application.Interfaces.Channels
     {
         Task<HttpResponseMessage> CreateAsync(string token, CreateChannelDto dto);
         Task<HttpResponseMessage> GetMyChannelsAsync(string token);
+        Task<HttpResponseMessage> SearchByNameAsync(string token,string channelName);
+        Task ExitAsync(string token, Guid chnnelId );        
 
 
     }
