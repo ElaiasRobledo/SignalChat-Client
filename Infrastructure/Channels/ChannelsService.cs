@@ -43,6 +43,14 @@ namespace Infrastructure.Channels
             var response = await _httpClient.GetAsync("mychannels");
             return response;            
         }
+
+        public async Task<HttpResponseMessage> GetChannelById(string token, Guid id)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.GetAsync($"{id}");
+            return response;
+        }
         public async Task<HttpResponseMessage> SearchByNameAsync(string token,string channelName)
         {
 

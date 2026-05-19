@@ -11,17 +11,14 @@ namespace Application.DTOs
 
     );
 
-// public record MyChannelsDto
-// (
-//     Guid Id,
-//     string Name,
-//     string Description,
-//     string? PublicId,
-//     bool IsPublic,
-//     int TotalMembers,
-//     DateTime CreatedAt
-// );
-
+    public record ChannelDetailsDto(
+        string Name,
+        string Description,
+        List<string> Tags,
+        bool IsPublic,
+        int TotalMembers,
+        DateTime CreatedAt
+    );
 
 }
 public class MyChannelsDto
