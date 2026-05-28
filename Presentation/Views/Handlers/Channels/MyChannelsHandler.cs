@@ -31,16 +31,16 @@ public static class MyChannelsView
         var table = new Table()
             .Border(TableBorder.Rounded)
             .AddColumn("[green]Channel[/]")
-            .AddColumn("[yellow]Members[/]");
-            //.AddColumn("[blue]Tags[/]");
+            .AddColumn("[yellow]Members[/]")
+            .AddColumn("[blue]Tags[/]");
 
 
         foreach (var c in myChannels)
         {
-            // var tags = c.Tags != null
-            //     ? string.Join(", ", c.Tags)
-            //     : "-";
-            table.AddRow(c.name, c.totalMembers.ToString());
+            var tags = c.tags != null && c.tags.Any()
+                ? string.Join(" [grey]|[/] ", c.tags)
+                : "[grey]-[/]";
+            table.AddRow(c.name, c.totalMembers.ToString(), tags);
         }
 
         AnsiConsole.Write(table);

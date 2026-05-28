@@ -65,10 +65,10 @@ public static class ChannelDetailsHandler
             .Border(TableBorder.Rounded)
             .AddColumn("[green1]Field[/]")
             .AddColumn("[green1]Value[/]");
-
+        
         table.AddRow("Name", channel.Name);
         table.AddRow("Description", channel.Description);
-        table.AddRow("Private", channel.IsPublic ? "Yes" : "No");
+        table.AddRow("Public", channel.IsPublic ? "Yes" : "No");
         table.AddRow("Tags", channel.Tags is null || !channel.Tags.Any()
         ? "No tags were found": string.Join(", ",channel.Tags));
         table.AddRow("Members", channel.TotalMembers.ToString());

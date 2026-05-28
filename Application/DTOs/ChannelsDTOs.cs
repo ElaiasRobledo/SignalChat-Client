@@ -29,5 +29,6 @@ public class MyChannelsDto
     public string? publicId { get; set; }
     public bool isPublic { get; set; }
     public int totalMembers { get; set; }
+    public List<string> tags { get; set; }  
     public DateTime createdAt { get; set; }
 }
