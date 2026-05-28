@@ -14,6 +14,16 @@ namespace Infrastructure.Channels
             _httpClient = httpClient;
         }
 
+        public async Task<HttpResponseMessage> JoinChannelAsync(string token, Guid chnnelId)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", token);
+        
+            var response = await _httpClient.PostAsync($"join/{chnnelId}", null);
+            return response;
+            
+        }
+        
        public async Task<HttpResponseMessage> CreateAsync(string token, CreateChannelDto dto)
         {
             _httpClient.DefaultRequestHeaders.Authorization
